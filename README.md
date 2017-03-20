@@ -34,6 +34,21 @@ module Demo
 end
 ```
 
+#### Calculate distance in metres between Lat/Longs
+
+```
+require "S2Geometry"
+
+module Demo
+  import 'com.google.common.geometry'
+  
+  s2_lat_long_1 = S2LatLng.from_degrees(-6.2, 106.816667)
+  s2_lat_long_2 = S2LatLng.from_degrees(-6.1, 106.816667)
+
+  puts s2_lat_long_2.getEarthDistance(s2_lat_long_1)
+end
+```
+
 #### Print Areas of Blocks of all S2 Levels in metres
 
 ```
