@@ -40,6 +40,8 @@ namespace :jar do
     path_to_s2_jar = File.join(S2GeometryHelper.java_root, 'build', 's2-geometry-java.jar')
     path_to_jsr_jar = File.join(S2GeometryHelper.java_root, 'lib', 'jsr305.jar')
     path_to_guava_jar = File.join(S2GeometryHelper.java_root, 'lib', 'guava-r09.jar')
+
+    FileUtils.mkdir S2GeometryHelper.rb_vendor
   
     [path_to_s2_jar, path_to_jsr_jar, path_to_guava_jar].each do |jar|
       FileUtils.cp jar, S2GeometryHelper.rb_vendor, verbose: true
