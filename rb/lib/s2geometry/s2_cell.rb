@@ -20,6 +20,9 @@ module S2Geometry #:nodoc:
       self.id.id
     end
     
+    # @param level [Integer] no arg/nil if immediate parent needed
+    # integer level between 1 and the immediate higer level of the 
+    # S2Cell on which it is invoked
     def parent(level = nil)
       parent_id = level ? self.id.parent(level) : self.id.parent 
       self.class.new(parent_id)
