@@ -63,11 +63,11 @@ module Demo
 
   leaf_cell = S2Cell.build_from_lat_long(-6.2, 106.816667)
   level_10_parent = leaf_cell.parent(10)
-  puts "#{level_10_parent.exactArea * 6371000 ** 2} sq m"
+  puts "#{Math.sqrt(level_10_parent.average_area * 6371000 ** 2)} sq m"
 end
 ```
 
-#### Print Areas of Blocks of all S2 Levels in metres
+#### Print Areas of Blocks of all S2 Levels in metres s
 
 ```
 require "S2Geometry"
