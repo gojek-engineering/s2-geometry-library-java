@@ -12,7 +12,6 @@ Gem::Specification.new do |spec|
   spec.homepage    = 'https://github.com/gojek-engineering/s2-geometry-library-java'
   spec.summary     = %q{Google's S2 Geometry Java Library}
   spec.description = %q{Gem package of Google's S2 Geometry Java Library for JRuby}
-
   spec.files         = Dir['lib/**/*.{rb,jar}']
   spec.require_paths = %w(lib)
   spec.add_development_dependency "bundler", "~> 1.8"

@@ -30,7 +30,7 @@ namespace :jar do
   end
   
   desc "Copy jars to gem vendor directory"
-  task copy: ['build'] do
+  task copy: ['jar:build'] do
     path_to_s2_jar = File.join(S2GeometryHelper.java_root, 'build', 's2-geometry-java.jar')
     path_to_jsr_jar = File.join(S2GeometryHelper.java_root, 'lib', 'jsr305.jar')
     path_to_guava_jar = File.join(S2GeometryHelper.java_root, 'lib', 'guava-r09.jar')
@@ -52,14 +52,14 @@ desc "Build dependencies for the gem, then the gem itself"
 task gem: ['clean', 'jar:clean', 'jar:build', 'jar:copy', 'spec', 'build']
 
 desc "Build the gem, install it and run some code against it"
-task validate: ['gem', 'install', 'use']
+task validate: ['gem', 'install:local', 'use']
 
 desc "Run some code against it"
 task :use do
   require 'S2Geometry'
   puts S2Geometry::VERSION
-  puts "Converting -6.2, 106.816667 to S2Id, if the next line appears we're golden!"
+  puts "Converting -6.2, 106.816667 to S2Id, if the next two lines appear without an exception, we're golden!"
   s2cell = S2Geometry::S2Cell.build_from_lat_long(-6.2, 106.816667)
   puts s2cell
-  puts s2cell.id
+  puts s2cell.long_id
 end
