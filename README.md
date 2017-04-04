@@ -123,7 +123,7 @@ The original Java repo is untouched, with a `rb/` dir being added containing the
 To run a build:
 
 * navigate to `rb/`
-* `.ruby-version` in `rb/` should auto select the appropriate JRuby (requires `rbenv` or `rvm`)
+* `.ruby-version` in `rb/` should auto select the appropriate JRuby (hassle free, quick JRuby install? use [rvm](https://rvm.io/) or [rbenv](https://github.com/rbenv/rbenv))
 * `bundle install`
 * `bundle exec rake -T` will list available tasks
 * `bundle exec rake validate --trace` will 
