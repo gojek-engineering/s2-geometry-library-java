@@ -3,20 +3,36 @@ require "spec_helper"
 describe S2Geometry::S2Cell do
   let(:latitude) { -6.2 }
   let(:longitude) { 106.816667 }
-  let(:s2cell) { described_class.build_from_lat_long(latitude, longitude) }
+  let(:s2_long_id) { 3344475367704269805 }
   
   context "factory" do
-    it "can build from latitude, longitude" do
-      expect(s2cell).to be_an_instance_of(described_class)
+    context "lat/lng" do
+      let(:s2cell) { described_class.build_from_lat_long(latitude, longitude) }
+      
+      it "can build from latitude, longitude" do
+        expect(s2cell).to be_an_instance_of(described_class)
+      end
+        
+      it "builds from latitude, longitude at leaf level" do
+        expect(s2cell.is_leaf).to eq(true)
+      end
+      
+      it "can return its S2 id as a long id" do
+        expect(s2cell.long_id).to eq(s2_long_id)
+      end
     end
     
-    it "builds from latitude, longitude at leaf level" do
-      expect(s2cell.is_leaf).to eq(true)
+    context "long id" do
+      let(:s2cell) { described_class.build_from_long_id(s2_long_id) }
+      
+      it "can build from long S2 id" do
+        expect(s2cell).to be_an_instance_of(described_class)
+      end
+      
+      it "resulting instance has same long S2 id" do
+        expect(s2cell.long_id).to eq(s2_long_id)
+      end
     end
-  end
-  
-  it "can return it's S2 id as a long" do
-    expect(s2cell.long_id).to eq(3344475367704269805)
-  end
+  end  
 end
 
