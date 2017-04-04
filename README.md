@@ -22,7 +22,7 @@ Via Bundler
 gem 's2geometry-jar', require: 'S2Geometry'
 ```
 
-#### Convert Lat/Long to S2Id
+#### Convert Lat/Long to S2Id, S2Id level operation
 
 ```
 require "S2Geometry"
@@ -53,6 +53,20 @@ module Demo
 end
 ```
 
+#### Print Area of a S2 Cell
+
+```
+require "S2Geometry"
+
+module Demo
+  import 'com.google.common.geometry'
+
+  leaf_cell = S2Cell.build_from_lat_long(-6.2, 106.816667)
+  level_10_parent = leaf_cell.parent(10)
+  puts "#{level_10_parent.exactArea * 6371000 ** 2} sq m"
+end
+```
+
 #### Print Areas of Blocks of all S2 Levels in metres
 
 ```
@@ -62,9 +76,10 @@ module Demo
   import 'com.google.common.geometry'
 
   for i in 1..30
-    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area() * 6371000 ** 2)}"
+    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area * 6371000 ** 2)}"
   end
 end
+```
 
 # Output
 

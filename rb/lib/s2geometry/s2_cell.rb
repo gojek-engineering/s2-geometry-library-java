@@ -19,5 +19,10 @@ module S2Geometry #:nodoc:
     def long_id
       self.id.id
     end
+    
+    def parent(level = nil)
+      parent_id = level ? self.id.parent(level) : self.id.parent 
+      self.class.new(parent_id)
+    end
   end
 end
