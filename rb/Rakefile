@@ -1,4 +1,9 @@
 require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+
+RSpec::Core::RakeTask.new(:spec)
+
+task :default => :spec
 
 module S2GeometryHelper
   def self.rb_vendor
@@ -29,6 +34,8 @@ namespace :jar do
     path_to_s2_jar = File.join(S2GeometryHelper.java_root, 'build', 's2-geometry-java.jar')
     path_to_jsr_jar = File.join(S2GeometryHelper.java_root, 'lib', 'jsr305.jar')
     path_to_guava_jar = File.join(S2GeometryHelper.java_root, 'lib', 'guava-r09.jar')
+
+    FileUtils.mkdir S2GeometryHelper.rb_vendor unless Dir.exist? S2GeometryHelper.rb_vendor
   
     [path_to_s2_jar, path_to_jsr_jar, path_to_guava_jar].each do |jar|
       FileUtils.cp jar, S2GeometryHelper.rb_vendor, verbose: true
@@ -42,14 +49,17 @@ namespace :jar do
 end
 
 desc "Build dependencies for the gem, then the gem itself"
-task gem: ['clean', 'jar:clean', 'jar:build', 'jar:copy', 'build']
+task gem: ['clean', 'jar:clean', 'jar:build', 'jar:copy', 'spec', 'build']
 
 desc "Build the gem, install it and run some code against it"
-task test: ['gem', 'install'] do
-  require 'S2Geometry'  
-  puts "Converting -6.2, 106.816667 to S2Id"
-  puts com.google.common.geometry.S2CellId.from_lat_lng(
-    com.google.common.geometry.S2LatLng.from_degrees(-6.2, 106.816667)
-  )
-  
+task validate: ['gem', 'install', 'use']
+
+desc "Run some code against it"
+task :use do
+  require 'S2Geometry'
+  puts S2Geometry::VERSION
+  puts "Converting -6.2, 106.816667 to S2Id, if the next line appears we're golden!"
+  s2cell = S2Geometry::S2Cell.build_from_lat_long(-6.2, 106.816667)
+  puts s2cell
+  puts s2cell.id
 end

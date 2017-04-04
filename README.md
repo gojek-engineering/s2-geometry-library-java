@@ -1,8 +1,12 @@
 # Google S2 Geometry Gem
 
-JRuby Gem wrapper for Google's S2 Geometry Java Library
+JRuby Gem wrapper for Google's S2 Geometry Java Library. S2 is a spherical geometry library from Google, available in Java, C++ and partially in Golang.
+
+Google Maps uses S2 to index the Earth, making any part of it addressable at resolutions varying from centimetres to kilometres.
 
 This codebase is forked from https://github.com/google/s2-geometry-library-java 
+
+Please read up on the usage of `import` in JRuby - I'd recommend you always `import` inside a Module so you don't pollute the global namepsace with Java classes.
 
 ## Usage
 
@@ -96,8 +100,18 @@ end
 30, 0.008586912588757878
 ```
 
-## Notes
+## Development
 
-S2 is a spherical geometry library from Google, available in Java and C++.
+The original Java repo is untouched, with a `rb/` dir being added containing the JRuby wrapper code, and this `README`.
 
-Google Maps uses S2 to index the Earth, making any part of it addressable at resolutions varying from centimetres to kilometres.
+To run a build:
+
+* navigate to `rb/`
+* `.ruby-version` in `rb/` should auto select the appropriate JRuby (requires `rbenv` or `rvm`)
+* `bundle install`
+* `bundle exec rake -T` will list available tasks
+* `bundle exec rake validate --trace` will 
+	* clean and rebuild the java jar (needs `ant` and the Java SDK)
+	* then copy it over into `rb/` directory
+	* build and install the gem
+	* `require 'S2Geometry'` and run convert a lat/lng to S2Id to confirm a successful build
