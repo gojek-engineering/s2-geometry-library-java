@@ -52,12 +52,14 @@ desc "Build dependencies for the gem, then the gem itself"
 task gem: ['clean', 'jar:clean', 'jar:build', 'jar:copy', 'spec', 'build']
 
 desc "Build the gem, install it and run some code against it"
-task validate: ['gem', 'install'] do
+task validate: ['gem', 'install', 'use']
+
+desc "Run some code against it"
+task :use do
   require 'S2Geometry'
+  puts S2Geometry::VERSION
   puts "Converting -6.2, 106.816667 to S2Id, if the next line appears we're golden!"
-  s2cellid = com.google.common.geometry.S2CellId.from_lat_lng(
-    com.google.common.geometry.S2LatLng.from_degrees(-6.2, 106.816667)
-  )
-  puts s2cellid
-  puts s2cellid.id
+  s2cell = S2Geometry::S2Cell.build_from_lat_long(-6.2, 106.816667)
+  puts s2cell
+  puts s2cell.id
 end
