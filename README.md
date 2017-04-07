@@ -67,7 +67,7 @@ module Demo
 end
 ```
 
-#### Print Areas of Blocks of all S2 Levels in metres s
+#### Print length of one side of all S2 Levels in metres
 
 ```
 require "S2Geometry"
@@ -75,8 +75,9 @@ require "S2Geometry"
 module Demo
   import 'com.google.common.geometry'
 
+  mean_radius_of_earth = 6371000
   for i in 1..30
-    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area * 6371000 ** 2)}"
+    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area * mean_radius_of_earth ** 2)}"
   end
 end
 ```
