@@ -67,7 +67,7 @@ module Demo
 end
 ```
 
-#### Print lenght of one side of cells of all S2 Levels in metres
+#### Print length of one side of all S2 Levels in metres
 
 ```
 require "S2Geometry"
