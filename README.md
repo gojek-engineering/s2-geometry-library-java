@@ -75,9 +75,8 @@ require "S2Geometry"
 module Demo
   import 'com.google.common.geometry'
 
-  mean_radius_of_earth = 6371000
   for i in 1..30
-    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area * mean_radius_of_earth ** 2)}"
+    puts "#{i}, #{Math.sqrt(S2Cell.from_face_pos_level(1, 1, i).average_area * S2LatLng::EARTH_RADIUS_METERS ** 2)}"
   end
 end
 ```
