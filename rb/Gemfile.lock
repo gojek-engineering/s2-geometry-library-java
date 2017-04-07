@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    s2geometry-jar (0.0.2-java)
+    s2geometry-jar (0.0.3-java)
 
 GEM
   remote: https://rubygems.org/

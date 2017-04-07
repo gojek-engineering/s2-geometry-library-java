@@ -7,4 +7,4 @@ module S2Geometry
 end
 
 require 's2geometry/version'
-require 's2geometry/s2_cell'
+require 's2geometry/extensions'
